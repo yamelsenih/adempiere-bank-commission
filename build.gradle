@@ -45,7 +45,7 @@ sourceSets {
 }
 
 
-def entityType = 'ECA47'
+def entityType = 'ECA64'
 version = System.getenv("ADEMPIERE_LIBRARY_VERSION") ?: "local-1.0.0"
 
 jar {
