@@ -15,7 +15,7 @@
  * All Rights Reserved.                                                       *
  * Contributor(s): Yamel Senih www.erpya.com                                  *
  *****************************************************************************/
-package org.spin.template.util;
+package org.spin.eca64.util;
 
 /**
  * Add here all changes for core and statci methods
@@ -23,6 +23,16 @@ package org.spin.template.util;
  * @author Yamel Senih, ysenih@erpya.com, ERPCyA http://www.erpya.com
  */
 public class Changes {
-	/**	Colum added to core	*/
-	public static final String COLUMNNAME_ColumAddedToCore = "ColumAddedToCore";
+	/**	Table Name for Account Product	*/
+	public static final String TableName_ECA64_BankAccountProduct = "ECA64_BankAccountProduct";
+	/**	Charge Percentage	*/
+	public static final String ECA64_ChargePercentage = "ECA64_ChargePercentage";
+	/**	Interest Percentage	*/
+	public static final String ECA64_InterestPercentage = "ECA64_InterestPercentage";
+	/**	Apply Charge	*/
+	public static final String ECA64_IsApplyCharge = "ECA64_IsApplyCharge";
+	/**	Apply Interest	*/
+	public static final String ECA64_IsApplyInterest = "ECA64_IsApplyInterest";
+	/**	Tolerance Amount	*/
+	public static final String ECA64_ToleranceAmount = "ECA64_ToleranceAmount";
 }

@@ -27,7 +27,7 @@ Change the `org.spin.template.util.Changes` by your implementation, example: `or
 
 ## Binary Project
 
-You can get all binaries from github [here](https://central.sonatype.com/artifact/io.github.adempiere/adempiere-template-project/1.0.0).
+You can get all binaries from github [here](https://central.sonatype.com/artifact/io.github.adempiere/adempiere-bank-commission/1.0.0).
 
 All contruction is from github actions
 
@@ -44,13 +44,13 @@ Is very easy.
 - Gradle
 
 ```Java
-implementation 'io.github.adempiere:adempiere-template-project:1.0.0'
+implementation 'io.github.adempiere:adempiere-bank-commission:1.0.0'
 ```
 
 - SBT
 
 ```
-libraryDependencies += "io.github.adempiere" % "adempiere-template-project" % "1.0.0"
+libraryDependencies += "io.github.adempiere" % "adempiere-bank-commission" % "1.0.0"
 ```
 
 - Apache Maven
@@ -58,7 +58,7 @@ libraryDependencies += "io.github.adempiere" % "adempiere-template-project" % "1
 ```
 <dependency>
     <groupId>io.github.adempiere</groupId>
-    <artifactId>adempiere-template-project</artifactId>
+    <artifactId>adempiere-bank-commission</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```

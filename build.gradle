@@ -73,11 +73,11 @@ publishing {
     publications {
         maven(MavenPublication) {
 			groupId = 'org.erpya.adempiere.tools'
-			artifactId = 'adempiere-template-project'
+			artifactId = 'adempiere-bank-commission'
 			version = patchVersion
            	from components.java
            	pom {
-                name = 'adempiere-template-project'
+                name = 'adempiere-bank-commission'
                 description = ''
                 url = 'https://www.erpya.com/'
                 licenses {
@@ -88,9 +88,9 @@ publishing {
                 }
                 developers {
                     developer {
-                        id = '<your id>'
-                        name = '<Your Name>'
-                        email = '<your mail>@erpya.com'
+                        id = 'yamelsenih'
+                        name = 'Yamel Senih'
+                        email = 'ysenih@erpya.com'
                     }
                 }
             }

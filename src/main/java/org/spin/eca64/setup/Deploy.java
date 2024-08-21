@@ -14,62 +14,61 @@
  * All Rights Reserved.                                                       *
  * Contributor(s): Yamel Senih www.erpya.com                                  *
  *****************************************************************************/
-package org.spin.template.setup;
+package org.spin.eca64.setup;
 
 import java.util.Properties;
 
+import org.compiere.model.MBankStatementMatcher;
 import org.compiere.model.Query;
-import org.adempiere.core.domains.models.X_AD_ModelValidator;
-import org.spin.template.model.validator.Validator;
+import org.erpya.eca64.bank.matcher.ProductAccountMatcher;
 import org.spin.util.ISetupDefinition;
 
 /**
- * Add here your setup class
+ * Add a Bank Statement Matcher
  * Please rename this class and package
  * @author Yamel Senih, ysenih@erpya.com, ERPCyA http://www.erpya.com
  */
 public class Deploy implements ISetupDefinition {
 
-	private static final String DESCRIPTION = "(*Created from Setup Automatically*)";
+	private static final String DESCRIPTION = "Realiza una coincidencia tomando en cuenta los productos bancario configurado en la cuenta bancaria";
 	private static final String UUID = "(*AutomaticSetup*)";
-	private static final String NAME = "Template Setup";
-	private static final String ENTITY_TYPE = null;
-	private static final int DEFAULT_SEQUENCE = 300;
+	private static final String NAME = "Coincidencia por Producto Bancario";
+	private static final int DEFAULT_SEQUENCE = 10;
 	
 	@Override
 	public String doIt(Properties context, String transactionName) {
 		//	Add Model Validator
-		createModelValidator(context, transactionName);
+		createBankStatementMatcher(context, transactionName);
 		//	financial management
 		return "@AD_SetupDefinition_ID@ @Ok@";
 	}
 	
 	/**
-	 * Create Model Vaidator
+	 * Create Matcher
 	 * @param context
 	 * @param transactionName
 	 * @return
 	 */
-	private X_AD_ModelValidator createModelValidator(Properties context, String transactionName) {
-		X_AD_ModelValidator modelValidator = new Query(context, X_AD_ModelValidator.Table_Name, X_AD_ModelValidator.COLUMNNAME_ModelValidationClass + " = ?", transactionName)
-				.setParameters(Validator.class.getName())
+	private MBankStatementMatcher createBankStatementMatcher(Properties context, String transactionName) {
+		MBankStatementMatcher matcher = new Query(context, MBankStatementMatcher.Table_Name, MBankStatementMatcher.COLUMNNAME_Classname + " = ?", transactionName)
+				.setParameters(ProductAccountMatcher.class.getName())
 				.setClient_ID()
-				.<X_AD_ModelValidator>first();
+				.<MBankStatementMatcher>first();
 		//	Validate
-		if(modelValidator != null
-				&& modelValidator.getAD_ModelValidator_ID() > 0) {
-			return modelValidator;
+		if(matcher != null
+				&& matcher.getC_BankStatementMatcher_ID() > 0) {
+			return matcher;
 		}
 		//	
-		modelValidator = new X_AD_ModelValidator(context, 0, transactionName);
-		modelValidator.setName(NAME);
-		modelValidator.setEntityType(ENTITY_TYPE);
-		modelValidator.setDescription(DESCRIPTION);
-		modelValidator.setSeqNo(DEFAULT_SEQUENCE);
-		modelValidator.setModelValidationClass(Validator.class.getName());
-		modelValidator.setUUID(UUID);
-		modelValidator.setIsDirectLoad(true);
-		modelValidator.saveEx();
-		return modelValidator;
+		matcher = new MBankStatementMatcher(context, 0, transactionName);
+		matcher.setAD_Org_ID(0);
+		matcher.setName(NAME);
+		matcher.setDescription(DESCRIPTION);
+		matcher.setSeqNo(DEFAULT_SEQUENCE);
+		matcher.setClassname(ProductAccountMatcher.class.getName());
+		matcher.setUUID(UUID);
+		matcher.setIsDirectLoad(true);
+		matcher.saveEx();
+		return matcher;
 	}
 }
