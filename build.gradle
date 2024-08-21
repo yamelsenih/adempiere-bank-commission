@@ -1,0 +1,99 @@
+plugins {
+	id 'java-library'
+	id 'maven-publish'
+	id 'signing'
+}
+
+sourceCompatibility = 1.11
+
+repositories {
+	mavenLocal()
+    mavenCentral()
+    maven {
+    	url = "https://maven.pkg.github.com/erpya/adempiere_patch"
+        credentials {
+        	username = System.getenv("GITHUB_DEPLOY_USER") ?: System.properties['deploy.user']
+            password = System.getenv("GITHUB_DEPLOY_TOKEN") ?: System.properties['deploy.token'] 
+		}
+	}
+}
+
+ext {
+    libraryRepo  = "https://maven.pkg.github.com/erpya/Repository"
+    patchVersion = System.getenv("ADEMPIERE_LIBRARY_VERSION") ?: "local-1.0.0"
+    baseVersion  = "3.9.4.001"
+    baseGroupId  = "io.github.adempiere"
+}
+
+dependencies {
+   api fileTree(
+        dir: 'lib',
+        include: [
+            '*.jar'
+        ]
+    )
+    //	ADempiere Core
+    api "${baseGroupId}:base:${baseVersion}"
+}
+
+sourceSets {
+    main {
+         java {
+            srcDirs = ['src/main/java']
+         }
+    }
+}
+
+
+def entityType = 'ECA47'
+version = System.getenv("ADEMPIERE_LIBRARY_VERSION") ?: "local-1.0.0"
+
+jar {
+	manifest {
+		attributes(
+			"Implementation-Title": "ADempiere Chrystal Integration",
+			"Implementation-Version": version,
+			"EntityType": entityType
+		)
+    }
+}
+
+publishing {
+    repositories {
+		mavenLocal()
+        maven {
+            url = libraryRepo
+            credentials {
+                username = System.getenv("GITHUB_DEPLOY_USER") ?: System.properties['deploy.user']
+                password = System.getenv("GITHUB_DEPLOY_TOKEN") ?: System.properties['deploy.token'] 
+            }
+        }
+    }
+    
+    publications {
+        maven(MavenPublication) {
+			groupId = 'org.erpya.adempiere.tools'
+			artifactId = 'adempiere-template-project'
+			version = patchVersion
+           	from components.java
+           	pom {
+                name = 'adempiere-template-project'
+                description = ''
+                url = 'https://www.erpya.com/'
+                licenses {
+                    license {
+                        name = 'GNU General Public License v3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = '<your id>'
+                        name = '<Your Name>'
+                        email = '<your mail>@erpya.com'
+                    }
+                }
+            }
+		}
+	}
+}
