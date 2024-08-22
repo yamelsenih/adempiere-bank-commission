@@ -145,9 +145,13 @@ public class ProductAccountMatcher implements BankStatementMatcherInterface {
 						where.append(" OR UPPER(TRIM(p.Description)) LIKE '%' || ? || '%'");
 						params.add(referenceNo.toUpperCase().trim());
 						if(!Util.isEmpty(ibs.getReferenceNo())) {
-							where.append("OR UPPER(TRIM(p.DocumentNo)) = ?");
+							where.append(" OR UPPER(TRIM(p.DocumentNo)) = ?");
 							params.add(ibs.getReferenceNo().toUpperCase().trim());
 							where.append(" OR UPPER(TRIM(p.Description)) LIKE '%' || ? || '%'");
+							params.add(ibs.getReferenceNo().toUpperCase().trim());
+							where.append(" OR ? LIKE '%' || UPPER(TRIM(p.CheckNo)) ");
+							params.add(ibs.getReferenceNo().toUpperCase().trim());
+							where.append(" OR ? LIKE '%' || UPPER(TRIM(p.DocumentNo)) ");
 							params.add(ibs.getReferenceNo().toUpperCase().trim());
 						}
 						where.append(")");
